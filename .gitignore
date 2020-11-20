@@ -1,34 +1,3 @@
-Skip to content
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
-
-@DyogoBendo
-DyogoBendo
-/
-URI-Python
-1
-00
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-Settings
-URI-Python/.gitignore
-@DyogoBendo
-DyogoBendo Initial commit
-Latest commit 9ef51e9 2 hours ago
- History
- 1 contributor
-129 lines (105 sloc)  1.76 KB
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
