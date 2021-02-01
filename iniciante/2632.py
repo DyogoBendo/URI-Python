@@ -1,7 +1,7 @@
-def calcula_equacao(xo, c):
+def calcula_equacao(centro_circulo, d_eixo, raio):
     a = 1
-    b = 2 * xo
-    c -= xo ** 2
+    b = -(2 * centro_circulo)
+    c = (centro_circulo ** 2) + (d_eixo ** 2) - (raio ** 2)
 
     delta = (b ** 2 - (4 * a * c))
     if delta < 0:
@@ -13,6 +13,7 @@ def calcula_equacao(xo, c):
 
 
 def calcula_coordenada(r, s, t, u, circulo):
+    x_funciona, y_funciona = False, False
     eixo_x_baixo = abs(s - circulo['x'])
     eixo_x_cima = abs(t - circulo['x'])
 
@@ -22,22 +23,35 @@ def calcula_coordenada(r, s, t, u, circulo):
     eixo_y_menor = eixo_y_baixo if eixo_y_baixo < eixo_y_cima else eixo_y_cima
     eixo_x_menor = eixo_x_baixo if eixo_x_baixo < eixo_x_cima else eixo_x_cima
 
-    c = circulo["raio"] ** 2 - eixo_y_menor ** 2
-    resultado = calcula_equacao(circulo["x"], c)
+    resultado = calcula_equacao(circulo["y"], eixo_x_menor, circulo["raio"])
 
-    print(resultado)
     if resultado:
         cima, baixo = resultado
-        if baixo >= eixo_x_menor:
+        if baixo <= r <= cima or baixo <= u <= cima\
+                or (r <= baixo <= u and r <= cima <= u):
             return True
+    else:
 
-    c = circulo["raio"] ** 2 - eixo_x_menor ** 2
-    resultado = calcula_equacao(circulo["y"], c)
-    print(resultado)
+        if  r < circulo['y'] - circulo['raio'] and circulo['y'] + circulo['raio'] < u:
+            y_funciona = True
+        else:
+            y_funciona = False
+
+    resultado = calcula_equacao(circulo["x"], eixo_y_menor, circulo["raio"])
     if resultado:
         cima, baixo = resultado
-        if baixo >= eixo_y_menor:
+        if baixo <= s <= cima or baixo <= t <= cima\
+                or (s <= baixo <= t and s <= cima <= t):
             return True
+    else:
+        if s < circulo['x'] - circulo['raio'] and circulo['x'] + circulo['raio'] < t:
+            x_funciona = True
+        else:
+            x_funciona = False
+
+    if x_funciona and y_funciona:
+        return True
+
     return False
 
 
