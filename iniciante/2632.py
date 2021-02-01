@@ -1,27 +1,50 @@
-def calcula_distancia (v, w):
-    return (v['x'] - w['x'])**2 + (v['y'] - w['y'])**2
+def calcula_equacao(xo, c):
+    a = 1
+    b = 2 * xo
+    c -= xo ** 2
 
-
-def coordenada_bate(c, v, w):
-    l2 = calcula_distancia(v, w)
-    if l2 == 0:
-        return False
-    t = ((c['x'] - v['x']) * (w['x'] - v['x']) + (c['y'] - v['y']) * (w['y'] - v['y'])) / l2
-    answer = {
-        'x': v['x'] + t * (w['x'] - v['x']),
-        'y': v['y'] + t * (w['y'] - v['y'])
-    }
-    distancia = (calcula_distancia(c, answer)) ** 0.5
-    if distancia <= raio:
-        return True
+    delta = (b ** 2 - (4 * a * c))
+    if delta < 0:
+        return None
     else:
-        return False
+        x1 = (-b + (delta ** 0.5)) / 2
+        x2 = (-b - (delta ** 0.5)) / 2
+        return [x1, x2]
+
+
+def calcula_coordenada(r, s, t, u, circulo):
+    eixo_x_baixo = abs(s - circulo['x'])
+    eixo_x_cima = abs(t - circulo['x'])
+
+    eixo_y_baixo = abs(r - circulo['y'])
+    eixo_y_cima = abs(u - circulo['y'])
+
+    eixo_y_menor = eixo_y_baixo if eixo_y_baixo < eixo_y_cima else eixo_y_cima
+    eixo_x_menor = eixo_x_baixo if eixo_x_baixo < eixo_x_cima else eixo_x_cima
+
+    c = circulo["raio"] ** 2 - eixo_y_menor ** 2
+    resultado = calcula_equacao(circulo["x"], c)
+
+    print(resultado)
+    if resultado:
+        cima, baixo = resultado
+        if baixo >= eixo_x_menor:
+            return True
+
+    c = circulo["raio"] ** 2 - eixo_x_menor ** 2
+    resultado = calcula_equacao(circulo["y"], c)
+    print(resultado)
+    if resultado:
+        cima, baixo = resultado
+        if baixo >= eixo_y_menor:
+            return True
+    return False
 
 
 if __name__ == '__main__':
     t = int(input())
     for i in range(t):
-        w, h, yo, xo = map(int, input().split())
+        w, h, xo, yo = map(int, input().split())
         are_commum = False
         magia, nivel, cx, cy = input().split()
         cx, cy = map(int, [cx, cy])
@@ -63,28 +86,12 @@ if __name__ == '__main__':
             'y': cy,
             'raio': raio
         }
+        r = yo
+        s = xo
+        t = xo + w
+        u = yo + h
 
-        ponto1 = {
-            'x': xo,
-            'y': yo
-        }
-
-        ponto2 = {
-            'x': xo + w,
-            'y': yo
-        }
-
-        ponto3 = {
-            'x': xo,
-            'y': yo + h
-        }
-
-        ponto4 = {
-            'x': xo + w,
-            'y': yo + h
-        }
-
-        if coordenada_bate(circulo, ponto1, ponto2) or coordenada_bate(circulo, ponto1, ponto3) or coordenada_bate(circulo, ponto2, ponto4) or coordenada_bate(circulo, ponto3, ponto4):
+        if calcula_coordenada(r, s, t, u, circulo):
             print(dano)
         else:
             print(0)
