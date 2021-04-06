@@ -1,45 +1,34 @@
-if __name__ == '__main__':
+if __name__ == "__main__":
     testes = int(input())
-    for i in range(testes):
-        perigoso = []
-        compostos = []
-        t = int(input())
-        for j in range(t):
-            perigoso.append(input())
-        u = int(input())
-        for j in range(u):
-            compostos.append(input())
-        for j in compostos:
-            problema = False
-            for k in perigoso:
-                b = j.count(k)
-                while b > 0:
-                    print(b)
-                    b -= 1
-                    a = j.find(k)
-                    if a + len(k) < len(j) - 1:
-                        a += len(k)
-                        if 'z' >= j[a] >= 'a' or '0' < j[a] <= '9':
-                            j = j[a:]
-                            a = j.find(k)
-                            problema is False
+    
+    for _ in range(testes):
+        qtd_perigosos = int(input())
+        perigosos = []
+        for __ in range(qtd_perigosos):
+            perigosos.append(input())
+            
+        qtd_experimentos = int(input())                
+        for __ in range(qtd_experimentos):            
+            experimento = input()
+            safe = True
+            
+            for i in perigosos:
+                posicao = experimento.find(i)
+                if posicao == -1:
+                    pass
+                else:
+                    if posicao + len(i) < len(experimento):                        
+                        if experimento[posicao + len(i)].isdigit():
                             continue
-                        else:
-                            print(j)
-                            print('Abortar')
-                            problema is True
-                            break
-                    else:
-                        print(j)
-                        print('Abortar')
-                        problema is True
-                        break
-                if problema:
+                        elif experimento[posicao + len(i)].isalpha():
+                            if experimento[posicao + len(i)].islower():                                
+                                continue                                                   
+                    safe = False
                     break
-            if not problema:
-                print(j)
-                print('Prossiga')
-
-        print()
-
-
+            if safe:                
+                print("Prossiga")
+            else:
+                print("Abortar") 
+        
+        if _ < testes - 1:
+            print()               
