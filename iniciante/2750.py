@@ -1,7 +1,7 @@
 if __name__ == '__main__':
-    print("---------------------------------------")
-    print("| decimal   |  octal  |  Hexadecimal  |")
-    print("---------------------------------------")
+    print("-"*39)
+    print("|  decimal  |  octal  |  Hexadecimal  |")
+    print("-"*39)
     for i in range(8):
         print(f"|      {i}    |    {i}    |       {i}       |")
     for i in range(8, 10):
@@ -12,5 +12,4 @@ if __name__ == '__main__':
         octal = i + 2
         hexadecimal = hexa[i%10]
         print(f"|     {i}    |   {octal}    |       {hexadecimal}       |")
-    print("---------------------------------------")
-    print()
+    print("-"*39)    
