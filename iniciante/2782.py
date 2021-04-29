@@ -5,29 +5,23 @@ if __name__ == "__main__":
 
     e = 0
     i = 0
-    while i < n:  
+        
+    while i < n - 1:  
         a = escada[i]        
+        is_first = True        
         for j in range(i + 1, n):
             b = escada[j]
-            if b >= a:
+            if is_first:
+                vs = b - a
+                is_first = False
                 a = escada[j]                
             else:
-                i = j - 1
-                break                
-        i += 1
+                if b - a == vs:
+                    a = escada[j]
+                else: 
+                    break                    
+            i += 1        
+        e += 1        
+    if n == 1:
         e += 1
-    
-    i = 0
-    while i < n:  
-        a = escada[i]        
-        for j in range(i + 1, n):
-            b = escada[j]
-            if b <= a:
-                a = escada[j]                
-            else:
-                i = j - 1                
-                e += 1
-                break
-        i += 1
-
     print(e)
