@@ -5,7 +5,7 @@ if __name__ == '__main__':
 
     if r1 > r2:
         print(-1)
-    if r1 < r2:
+    elif r1 < r2:
         print(1)
     else:
         print(0)
